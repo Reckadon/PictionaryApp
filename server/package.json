@@ -1,11 +1,12 @@
 {
-	"name": "server",
+	"name": "pictionary-app-server",
 	"version": "0.0.1",
 	"description": "express server for the pictionary app built during WoC 6.0",
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"start": "nodemon index.js"
+		"start": "node index.js",
+		"dev": "nodemon index.js"
 	},
 	"author": "Romit Mohane",
 	"license": "ISC",
