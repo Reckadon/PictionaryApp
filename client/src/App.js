@@ -1,5 +1,11 @@
+import { useState } from "react";
+import GameScreen from "./Screens/GameScreen";
+import HomeScreen from "./Screens/HomeScreen";
+
 function App() {
-	return <h2>Hi</h2>;
+	const [isInGame, setIsInGame] = useState(false);
+
+	return <>{isInGame ? <GameScreen /> : <HomeScreen />}</>;
 }
 
 export default App;
