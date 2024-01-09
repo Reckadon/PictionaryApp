@@ -1,0 +1,5 @@
+@use "../mixins.scss" as mix;
+
+.game-screen {
+	@include mix.full-screen-flex;
+}

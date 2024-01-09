@@ -5,7 +5,15 @@ import HomeScreen from "./Screens/HomeScreen";
 function App() {
 	const [isInGame, setIsInGame] = useState(false);
 
-	return <>{isInGame ? <GameScreen /> : <HomeScreen />}</>;
+	return (
+		<>
+			<div className="bg"></div>
+			<button style={{ position: "absolute" }} onClick={() => setIsInGame(prev => !prev)}>
+				Change Screen
+			</button>
+			{isInGame ? <GameScreen /> : <HomeScreen />}
+		</>
+	);
 }
 
 export default App;

@@ -1,0 +1,35 @@
+@mixin full-screen-flex {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+@function set-color($color) {
+	@if (lightness($color) > 40) {
+		@return #000;
+	} @else {
+		@return #fff;
+	}
+}
+
+@mixin base-btn($bg-color) {
+	padding: 8px 12px;
+	margin: 5px;
+	font-size: 1em;
+	border: none;
+	border-radius: 8px;
+	background-color: $bg-color;
+	color: set-color($bg-color);
+
+	&:hover {
+		cursor: pointer;
+		opacity: 0.9;
+	}
+	&:active {
+		opacity: 1.5;
+	}
+	&:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 2px white, 0 0 0 4px $bg-color;
+	}
+}

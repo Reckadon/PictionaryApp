@@ -1,3 +1,6 @@
+@use "./mixins.scss" as mix;
+@use "colors";
+
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
@@ -12,4 +15,39 @@ code {
 
 #root {
 	height: 100vh;
+	overflow-y: hidden;
+
+	.bg {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+
+		background-color: colors.$bg-color;
+		opacity: 1;
+		background-image: radial-gradient(
+				colors.$accent-color 1.9000000000000001px,
+				transparent 1.9000000000000001px
+			),
+			radial-gradient(
+				colors.$accent-color 1.9000000000000001px,
+				colors.$bg-color 1.9000000000000001px
+			);
+		background-size: 76px 76px;
+		background-position: 0 0, 38px 38px;
+	}
+}
+
+h1 {
+	font: {
+		family: Bangers;
+		size: 3em;
+		weight: 400;
+	}
+	color: colors.$text-color;
+	margin-block-start: 0;
+}
+
+.styledButton {
+	@include mix.base-btn(colors.$accent-color-2);
 }

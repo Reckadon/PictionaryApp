@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import "./HomeScreen.scss";
 
 const HomeScreen = () => {
@@ -6,7 +7,9 @@ const HomeScreen = () => {
 
 	return (
 		<div className="home-screen">
-			<h1>Pictionary Game</h1>
+			<motion.h1 layout="position" layoutId="heading">
+				Pictionary Game
+			</motion.h1>
 			<div className="card">
 				<input
 					type="text"
@@ -14,6 +17,7 @@ const HomeScreen = () => {
 					value={username}
 					onChange={e => setUsername(e.target.value)}
 				/>
+				<button className="styledButton">Play</button>
 			</div>
 		</div>
 	);
