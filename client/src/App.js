@@ -1,18 +1,25 @@
 import { useState } from "react";
 import GameScreen from "./Screens/GameScreen";
 import HomeScreen from "./Screens/HomeScreen";
+import { AnimatePresence, LazyMotion } from "framer-motion";
+
+const loadFeatures = () => import("./motion-features").then(res => res.default);
 
 function App() {
 	const [isInGame, setIsInGame] = useState(false);
 
 	return (
-		<>
+		<LazyMotion strict features={loadFeatures}>
 			<div className="bg"></div>
-			<button style={{ position: "absolute" }} onClick={() => setIsInGame(prev => !prev)}>
+			<button
+				style={{ position: "absolute", zIndex: 99 }}
+				onClick={() => setIsInGame(prev => !prev)}
+			>
 				Change Screen
 			</button>
-			{isInGame ? <GameScreen /> : <HomeScreen />}
-		</>
+			<AnimatePresence mode="popLayout">{!isInGame && <HomeScreen />}</AnimatePresence>
+			<AnimatePresence mode="popLayout">{isInGame && <GameScreen />}</AnimatePresence>
+		</LazyMotion>
 	);
 }
 

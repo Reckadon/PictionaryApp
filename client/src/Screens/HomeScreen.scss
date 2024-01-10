@@ -1,8 +1,34 @@
 @use "../mixins.scss" as mix;
+@use "../colors";
 
 .home-screen {
 	@include mix.full-screen-flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	.card {
+		background-color: rgba(255, 255, 255, 0.8);
+		padding: 15px;
+		width: clamp(250px, 50vw, 500px);
+		border-radius: 10px;
+		box-shadow: 0 2px 5px 0 colors.$accent-color;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color: colors.$text-color;
+		font-weight: 500;
+
+		label {
+			text-align: center;
+			display: flow-root;
+		}
+
+		hr {
+			margin-block-start: 1em;
+			margin-block-end: 1em;
+			width: 95%;
+			border-top: 2px solid colors.$accent-color;
+		}
+	}
 }

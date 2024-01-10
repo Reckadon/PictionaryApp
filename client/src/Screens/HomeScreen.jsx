@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import "./HomeScreen.scss";
 
 const HomeScreen = () => {
@@ -7,18 +7,42 @@ const HomeScreen = () => {
 
 	return (
 		<div className="home-screen">
-			<motion.h1 layout="position" layoutId="heading">
+			<m.h1 layout="position" layoutId="heading">
 				Pictionary Game
-			</motion.h1>
-			<div className="card">
-				<input
-					type="text"
-					placeholder="Enter your username"
-					value={username}
-					onChange={e => setUsername(e.target.value)}
-				/>
-				<button className="styledButton">Play</button>
-			</div>
+			</m.h1>
+			<m.div
+				key="home-screen-card"
+				className="card"
+				transition={{ ease: "backInOut" }}
+				exit={{ y: document.body.scrollHeight / 1.5 }}
+				animate={{ y: 0 }}
+				initial={{ y: document.body.scrollHeight / 1.5 }}
+			>
+				<label>
+					Username:
+					<br />
+					<input
+						type="text"
+						placeholder="Enter your username"
+						value={username}
+						onChange={e => setUsername(e.target.value)}
+						//TODO: triggers 'play' when enter pressed
+					/>
+				</label>
+				<hr />
+				<section>
+					<label>
+						Join Room: <br />
+						<input type="text" placeholder="Enter Room ID to join" />
+						<button className="styledButton">Join</button>
+					</label>
+				</section>
+				<br />
+				<label>
+					Create Private Room: <br />
+					<button className="styledButton wide">Create Room</button>
+				</label>
+			</m.div>
 		</div>
 	);
 };

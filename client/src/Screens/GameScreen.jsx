@@ -1,12 +1,14 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import "./GameScreen.scss";
 
 const GameScreen = () => {
 	return (
 		<div className="game-screen">
-			<motion.h1 layout="position" layoutId="heading">
-				Pictionary Game
-			</motion.h1>
+			<div className="game-container">
+				<m.h1 layout="position" layoutId="heading">
+					Pictionary Game
+				</m.h1>
+			</div>
 		</div>
 	);
 };

@@ -2,4 +2,9 @@
 
 .game-screen {
 	@include mix.full-screen-flex;
+	justify-content: center;
+
+	.game-container {
+		width: clamp(0px, 100%, 1500px);
+	}
 }
