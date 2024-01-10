@@ -13,7 +13,7 @@ const HomeScreen = () => {
 			<m.div
 				key="home-screen-card"
 				className="card"
-				transition={{ ease: "backInOut" }}
+				transition={{ ease: "backInOut", duration: 0.5 }}
 				exit={{ y: document.body.scrollHeight / 1.5 }}
 				animate={{ y: 0 }}
 				initial={{ y: document.body.scrollHeight / 1.5 }}

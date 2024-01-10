@@ -38,17 +38,27 @@ code {
 	}
 }
 
-h1 {
+@mixin heading-style {
 	font: {
 		family: Bangers;
-		size: 3em;
 		weight: 400;
 	}
+	text-align: center;
 	color: colors.$text-color;
 	margin-block-start: 0;
 	margin-block-end: 0.3em;
+	z-index: 5;
 }
 
+h1 {
+	@include heading-style;
+	font-size: 3em;
+}
+h2 {
+	@include heading-style;
+	font-size: 2.1em;
+	margin-block-start: 0.3em;
+}
 .styledButton {
 	@include mix.base-btn(colors.$accent-color-2);
 }
