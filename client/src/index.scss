@@ -14,7 +14,7 @@ code {
 }
 
 #root {
-	height: 100vh;
+	height: 100dvh;
 	overflow-y: hidden;
 
 	.bg {
@@ -25,14 +25,8 @@ code {
 
 		background-color: colors.$bg-color;
 		opacity: 1;
-		background-image: radial-gradient(
-				colors.$accent-color 1.9000000000000001px,
-				transparent 1.9000000000000001px
-			),
-			radial-gradient(
-				colors.$accent-color 1.9000000000000001px,
-				colors.$bg-color 1.9000000000000001px
-			);
+		background-image: radial-gradient(colors.$accent-color 1.9px, transparent 1.9px),
+			radial-gradient(colors.$accent-color 1.9px, colors.$bg-color 1.9px);
 		background-size: 76px 76px;
 		background-position: 0 0, 38px 38px;
 	}
