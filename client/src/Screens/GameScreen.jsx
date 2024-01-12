@@ -12,7 +12,7 @@ const GameScreen = () => {
 							Pictionary Game
 						</m.h2>
 					}
-					middle={<canvas></canvas>}
+					middle={<canvas width={800} height={600}></canvas>}
 					right={<div>Right container</div>}
 				/>
 			</div>
