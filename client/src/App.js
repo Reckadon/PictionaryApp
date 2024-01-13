@@ -17,7 +17,9 @@ function App() {
 			>
 				Change Screen
 			</button>
-			<AnimatePresence mode="popLayout">{!isInGame && <HomeScreen />}</AnimatePresence>
+			<AnimatePresence mode="popLayout">
+				{!isInGame && <HomeScreen onGameJoin={() => setIsInGame(true)} />}
+			</AnimatePresence>
 			<AnimatePresence mode="popLayout">{isInGame && <GameScreen />}</AnimatePresence>
 		</LazyMotion>
 	);

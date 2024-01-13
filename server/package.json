@@ -11,7 +11,9 @@
 	"author": "Romit Mohane",
 	"license": "ISC",
 	"dependencies": {
-		"express": "^4.18.2"
+		"express": "^4.18.2",
+		"nanoid": "^5.0.4",
+		"socket.io": "^4.7.4"
 	},
 	"devDependencies": {
 		"nodemon": "^3.0.2"
