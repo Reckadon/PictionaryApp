@@ -1,2 +1,3 @@
 # PictionaryApp
-Pictionary App made with NodeJS, ExpressJS and with the help of Socket.io
+
+Pictionary App made with ReactJS NodeJS, ExpressJS and with the help of Socket.io
