@@ -23,7 +23,7 @@ const HomeScreen = ({ onGameJoin }) => {
 
 	const handleJoinRoom = () => {
 		connectToSocket();
-		connectToRoom(username, roomID, status => {
+		connectToRoom(username, roomID, ({ status, roomData }) => {
 			if (status === 404) {
 				disconnectFromSocket();
 				alert("Invalid Room ID!");

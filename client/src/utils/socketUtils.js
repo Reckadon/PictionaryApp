@@ -25,7 +25,5 @@ export const createAndConnectToRoom = (username, callback) => {
  * @callback callback
  */
 export const connectToRoom = (username, roomID, callback) => {
-	socket.emit("joinRoom", username, roomID, res => {
-		callback(res.status);
-	});
+	socket.emit("joinRoom", username, roomID, res => callback(res));
 };
