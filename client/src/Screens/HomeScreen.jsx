@@ -9,7 +9,7 @@ import {
 } from "../utils/socketUtils";
 
 /**
- * @param {()=>void} { onGameJoin }
+ * @param {()=>void} onGameJoin runs when user joins a room successfully
  * @return {React.JSX.Element}
  */
 const HomeScreen = ({ onGameJoin }) => {
@@ -23,7 +23,7 @@ const HomeScreen = ({ onGameJoin }) => {
 
 	const handleJoinRoom = () => {
 		connectToSocket();
-		connectToRoom(username, roomID, ({ status, roomData }) => {
+		connectToRoom(username, roomID, ({ status }) => {
 			if (status === 404) {
 				disconnectFromSocket();
 				alert("Invalid Room ID!");

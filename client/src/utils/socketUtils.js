@@ -14,8 +14,13 @@ export const disconnectFromSocket = () => {
 	socket.disconnect();
 };
 
+/**
+ * sends a message to the server to create a new room with a random id, and joins the user in that room
+ * @param {string} username
+ * @callback callback
+ */
 export const createAndConnectToRoom = (username, callback) => {
-	socket.emit("createRoom", username, callback);
+	socket.emit("createRoom", username, () => callback());
 };
 
 /**
