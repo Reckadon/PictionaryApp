@@ -2,7 +2,7 @@ import { m } from "framer-motion";
 import "./GameScreen.scss";
 import Grid from "../components/Grid";
 
-const GameScreen = ({ roomID = "", players = [] }) => {
+const GameScreen = ({ roomID = "", players = [], onGameLeave }) => {
 	return (
 		<div className="game-screen">
 			<div className="game-container">
@@ -22,6 +22,9 @@ const GameScreen = ({ roomID = "", players = [] }) => {
 									{i + 1}: {p.username}
 								</div>
 							))}
+							<button className="styledButton fit" onClick={onGameLeave}>
+								Leave
+							</button>
 						</>
 					}
 					middle={<canvas width={800} height={600}></canvas>}

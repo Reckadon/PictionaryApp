@@ -3,22 +3,24 @@ import GameScreen from "./Screens/GameScreen";
 import HomeScreen from "./Screens/HomeScreen";
 import { AnimatePresence, LazyMotion } from "framer-motion";
 import { useRoomData } from "./utils/hooks";
+import { disconnectFromSocket, leaveRoom } from "./utils/socketUtils";
 
 const loadFeatures = () => import("./motion-features").then(res => res.default);
 
 function App() {
 	const [isInGame, setIsInGame] = useState(false);
-	const roomData = useRoomData();
+	const [playerID, roomData] = useRoomData();
+
+	const handleGameLeave = () => {
+		leaveRoom(playerID, roomData.roomID, () => {
+			setIsInGame(false);
+			disconnectFromSocket();
+		});
+	};
 
 	return (
 		<LazyMotion strict features={loadFeatures}>
 			<div className="bg"></div>
-			<button
-				style={{ position: "absolute", zIndex: 99 }}
-				onClick={() => setIsInGame(prev => !prev)}
-			>
-				Change Screen
-			</button>
 			<AnimatePresence mode="popLayout">
 				{!isInGame && (
 					<HomeScreen
@@ -28,7 +30,9 @@ function App() {
 					/>
 				)}
 			</AnimatePresence>
-			<AnimatePresence mode="popLayout">{isInGame && <GameScreen {...roomData} />}</AnimatePresence>
+			<AnimatePresence mode="popLayout">
+				{isInGame && <GameScreen {...roomData} onGameLeave={handleGameLeave} />}
+			</AnimatePresence>
 		</LazyMotion>
 	);
 }

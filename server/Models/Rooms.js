@@ -23,10 +23,12 @@ export const roomExists = roomID => {
  * @class Room
  * @prop {string} roomID
  * @prop {Array.<Player>} players
+ * @prop {number} idForNextPlayer
  */
 export class Room {
 	roomID;
 	players;
+	idForNextPlayer;
 
 	/**
 	 * Creates an instance of Room.
@@ -37,6 +39,7 @@ export class Room {
 	constructor(roomID) {
 		this.roomID = roomID;
 		this.players = [];
+		this.idForNextPlayer = 0;
 		return this;
 	}
 
@@ -47,6 +50,7 @@ export class Room {
 	 */
 	addPlayer(player) {
 		this.players.push(player);
+		this.idForNextPlayer++;
 		return this;
 	}
 }

@@ -32,3 +32,13 @@ export const createAndConnectToRoom = (username, callback) => {
 export const connectToRoom = (username, roomID, callback) => {
 	socket.emit("joinRoom", username, roomID, res => callback(res));
 };
+
+/**
+ * Leave the current game room.
+ * @param {number} id id of the user
+ * @param {string} roomID
+ * @callback callback
+ */
+export const leaveRoom = (id, roomID, callback) => {
+	socket.emit("leaveRoom", id, roomID, res => callback(res));
+};
