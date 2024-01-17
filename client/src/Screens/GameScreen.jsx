@@ -16,15 +16,22 @@ const GameScreen = ({ roomID = "", players = [], onGameLeave }) => {
 							>
 								Pictionary Game
 							</m.h2>
-							<span>Room ID: {roomID}</span>
-							{players.map((p, i) => (
-								<div key={p.id}>
-									{i + 1}: {p.username}
-								</div>
-							))}
-							<button className="styledButton fit" onClick={onGameLeave}>
-								Leave
-							</button>
+							<div>
+								{players.map((p, i) => (
+									<div key={p.id}>
+										{i + 1}: {p.username}
+									</div>
+								))}
+								<button
+									className="styledButton fit"
+									onClick={() => navigator.clipboard.writeText(roomID)}
+								>
+									Copy Room ID: {roomID}
+								</button>
+								<button className="styledButton fit danger" onClick={onGameLeave}>
+									Leave
+								</button>
+							</div>
 						</>
 					}
 					middle={<canvas width={800} height={600}></canvas>}

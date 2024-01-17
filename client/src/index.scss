@@ -56,12 +56,8 @@ h2 {
 .styledButton {
 	@include mix.base-btn(colors.$accent-color-2);
 }
-.styledButton.wide {
-	min-width: 200px;
-}
-.styledButton.fit {
-	width: 100%;
-	margin: 0;
+.styledButton.danger {
+	@include mix.base-btn(colors.$accent-color-3);
 }
 
 input[type="text"] {

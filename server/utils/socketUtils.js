@@ -37,7 +37,6 @@ export const registerEvents = socket => {
 			const i = Rooms.findIndex(room => room.roomID === roomID);
 			Rooms[i].addPlayer(new Player(Rooms[i].idForNextPlayer, username));
 			console.log(`${username} joined room ${roomID}`);
-			console.log(Rooms);
 			callback({ status: 200 });
 			socket.emit(SocketEventNames.InitialRoomData, {
 				players: Rooms[i].players,
@@ -57,7 +56,7 @@ export const registerEvents = socket => {
 		console.log(`player with id:${id} left room ${roomID}`);
 		Rooms[i].players = Rooms[i].players.filter(player => player.id !== id);
 		if (Rooms[i].players.length === 0) {
-			Rooms.filter(room => room.roomID !== roomID);
+			Rooms = Rooms.filter(room => room.roomID !== roomID);
 			console.log(`deleted room ${roomID} as there are no players left`);
 		}
 		callback();
