@@ -84,14 +84,14 @@ export const registerEvents = (io, socket) => {
 
 const registerDisconnectListener = (socket, roomID, playerID) => {
 	socket.on("disconnect", () => {
-		console.log("disconnect");
 		const i = Rooms.findIndex(room => room.roomID === roomID);
+		if (i === -1) return;
+		if (Rooms[i].players.findIndex(p => p.id === playerID) === -1) return;
 		Rooms[i].players = Rooms[i].players.filter(player => player.id !== playerID);
 		if (Rooms[i].players.length === 0) {
 			Rooms.splice(i, 1);
 			console.log(`deleted room ${roomID} as there are no players left`);
 		}
-		console.log(Rooms);
 		socket.broadcast.to(roomID).emit(SocketEventNames.PlayerLeave, playerID);
 	});
 };
