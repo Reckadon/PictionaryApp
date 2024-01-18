@@ -1,10 +1,10 @@
-import { useState } from "react";
-import GameScreen from "./Screens/GameScreen";
+import { lazy, useState } from "react";
 import HomeScreen from "./Screens/HomeScreen";
 import { AnimatePresence, LazyMotion } from "framer-motion";
 import { useRoomData } from "./utils/hooks";
 import { disconnectFromSocket, leaveRoom } from "./utils/socketUtils";
 
+const GameScreen = lazy(() => import("./Screens/GameScreen"));
 const loadFeatures = () => import("./motion-features").then(res => res.default);
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
 				)}
 			</AnimatePresence>
 			<AnimatePresence mode="popLayout">
-				{isInGame && <GameScreen {...roomData} onGameLeave={handleGameLeave} />}
+				{isInGame && <GameScreen playerID={playerID} {...roomData} onGameLeave={handleGameLeave} />}
 			</AnimatePresence>
 		</LazyMotion>
 	);

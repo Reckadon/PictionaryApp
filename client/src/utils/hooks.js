@@ -13,6 +13,19 @@ export const useRoomData = () => {
 			setPlayerID(roomData.players[roomData.players.length - 1].id);
 		});
 
+		socket.on("chatMsg", newMsg => {
+			setData(prev => {
+				const sender = prev.players.find(p => p.id === newMsg.sender);
+				return {
+					...prev,
+					messages: [
+						...prev.messages,
+						{ ...newMsg, username: sender ? sender.username : undefined },
+					],
+				};
+			});
+		});
+
 		socket.on("newPlayer", newPlayer =>
 			setData(prev => {
 				return { ...prev, players: [...prev.players, newPlayer] };
@@ -27,7 +40,9 @@ export const useRoomData = () => {
 
 		return () => {
 			socket.off("initialRoomData");
+			socket.off("chatMsg");
 			socket.off("newPlayer");
+			socket.off("playerLeave");
 		};
 	}, []);
 	return [playerID, data];

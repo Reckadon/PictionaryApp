@@ -29,6 +29,7 @@ export class Room {
 	roomID;
 	players;
 	idForNextPlayer;
+	messages;
 
 	/**
 	 * Creates an instance of Room.
@@ -39,6 +40,7 @@ export class Room {
 	constructor(roomID) {
 		this.roomID = roomID;
 		this.players = [];
+		this.messages = [];
 		this.idForNextPlayer = 0;
 		return this;
 	}

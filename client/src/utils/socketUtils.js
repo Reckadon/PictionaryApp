@@ -42,3 +42,7 @@ export const connectToRoom = (username, roomID, callback) => {
 export const leaveRoom = (id, roomID, callback) => {
 	socket.emit("leaveRoom", id, roomID, res => callback(res));
 };
+
+export const sendMessageToServer = (id, roomID, message) => {
+	socket.emit("chatMsg", id, roomID, message);
+};

@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, "..", "client", "build"))); //servin
 
 io.on("connection", socket => {
 	console.log("a client connected");
-	registerEvents(socket);
+	registerEvents(io, socket);
 
 	socket.on("disconnect", reason => {
 		console.log(reason);

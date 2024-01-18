@@ -1,7 +1,8 @@
-import { Socket } from "socket.io";
+import { Server, Socket } from "socket.io";
 import { nanoid } from "nanoid";
 import { Room, Rooms, roomExists } from "../Models/Rooms.js";
 import { Player } from "../Models/Player.js";
+import { Message } from "../Models/Message.js";
 
 const SocketEventNames = {
 	CreateRoom: "createRoom",
@@ -10,14 +11,16 @@ const SocketEventNames = {
 	LeaveRoom: "leaveRoom",
 	NewPlayer: "newPlayer",
 	PlayerLeave: "playerLeave",
+	ChatMessage: "chatMsg",
 };
 
 const ID_LENGTH = 7;
 
 /**
+ * @param {Server} io
  * @param {Socket} socket
  */
-export const registerEvents = socket => {
+export const registerEvents = (io, socket) => {
 	socket.on(SocketEventNames.CreateRoom, (username, callback) => {
 		const uuid = nanoid(ID_LENGTH);
 		socket.join(uuid);
@@ -28,6 +31,7 @@ export const registerEvents = socket => {
 		socket.emit(SocketEventNames.InitialRoomData, {
 			players: Rooms[Rooms.length - 1].players,
 			roomID: Rooms[Rooms.length - 1].roomID,
+			messages: Rooms[Rooms.length - 1].messages,
 		});
 
 		registerDisconnectListener(socket, uuid, 0);
@@ -44,6 +48,7 @@ export const registerEvents = socket => {
 			socket.emit(SocketEventNames.InitialRoomData, {
 				players: Rooms[i].players,
 				roomID: Rooms[i].roomID,
+				messages: Rooms[Rooms.length - 1].messages,
 			});
 			socket.broadcast
 				.to(roomID)
@@ -61,11 +66,19 @@ export const registerEvents = socket => {
 		console.log(`player with id:${id} left room ${roomID}`);
 		Rooms[i].players = Rooms[i].players.filter(player => player.id !== id);
 		if (Rooms[i].players.length === 0) {
-			Rooms.splice(i);
+			Rooms.splice(i, 1);
 			console.log(`deleted room ${roomID} as there are no players left`);
 		}
 		callback();
 		socket.broadcast.to(roomID).emit(SocketEventNames.PlayerLeave, id);
+	});
+
+	socket.on(SocketEventNames.ChatMessage, (id, roomID, message) => {
+		const i = Rooms.findIndex(room => room.roomID === roomID);
+		const newMsg = new Message(id, message);
+		Rooms[i].messages.push(newMsg);
+		console.log(id, message);
+		io.to(roomID).emit(SocketEventNames.ChatMessage, newMsg);
 	});
 };
 
