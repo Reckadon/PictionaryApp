@@ -51,8 +51,14 @@ const GameScreen = ({ playerID, roomID = "", players = [], messages = [], onGame
 						<div className="panelBox chat">
 							<div className="messages">
 								{messages.map(msg => (
-									<div>
-										{msg.username}: {msg.text}
+									<div style={{ color: msg.color !== "def" && msg.color }}>
+										{msg.username ? (
+											<>
+												{msg.username}: {msg.text}
+											</>
+										) : (
+											<>{msg.text}</>
+										)}
 									</div>
 								))}
 							</div>

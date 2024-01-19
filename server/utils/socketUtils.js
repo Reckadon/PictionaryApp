@@ -43,16 +43,20 @@ export const registerEvents = (io, socket) => {
 			const i = Rooms.findIndex(room => room.roomID === roomID);
 			const playerID = Rooms[i].idForNextPlayer;
 			Rooms[i].addPlayer(new Player(playerID, username));
+			const joinMsg = new Message("server", `${username} joined!`, "green");
+			Rooms[i].messages.push(joinMsg);
 			console.log(`${username} joined room ${roomID}`);
 			callback({ status: 200 });
 			socket.emit(SocketEventNames.InitialRoomData, {
 				players: Rooms[i].players,
 				roomID: Rooms[i].roomID,
-				messages: Rooms[Rooms.length - 1].messages,
+				messages: [Rooms[i].messages[Rooms[i].messages.length - 1]],
 			});
+
 			socket.broadcast
 				.to(roomID)
 				.emit(SocketEventNames.NewPlayer, Rooms[i].players[Rooms[i].players.length - 1]);
+			socket.to(roomID).emit(SocketEventNames.ChatMessage, joinMsg);
 
 			registerDisconnectListener(socket, roomID, playerID);
 		} else {
@@ -75,7 +79,7 @@ export const registerEvents = (io, socket) => {
 
 	socket.on(SocketEventNames.ChatMessage, (id, roomID, message) => {
 		const i = Rooms.findIndex(room => room.roomID === roomID);
-		const newMsg = new Message(id, message);
+		const newMsg = new Message(id, message, "def");
 		Rooms[i].messages.push(newMsg);
 		console.log(id, message);
 		io.to(roomID).emit(SocketEventNames.ChatMessage, newMsg);
