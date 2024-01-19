@@ -96,6 +96,7 @@ const registerDisconnectListener = (socket, roomID, playerID) => {
 		const i = Rooms.findIndex(room => room.roomID === roomID);
 		if (i === -1) return;
 		if (Rooms[i].players.findIndex(p => p.id === playerID) === -1) return;
+		const username = Rooms[i].players.find(p => p.id === id).username;
 		Rooms[i].players = Rooms[i].players.filter(player => player.id !== playerID);
 		const leaveMsg = new Message("server", `${username} left.`, "red");
 		Rooms[i].messages.push(leaveMsg);
