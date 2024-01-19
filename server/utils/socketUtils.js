@@ -97,10 +97,13 @@ const registerDisconnectListener = (socket, roomID, playerID) => {
 		if (i === -1) return;
 		if (Rooms[i].players.findIndex(p => p.id === playerID) === -1) return;
 		Rooms[i].players = Rooms[i].players.filter(player => player.id !== playerID);
+		const leaveMsg = new Message("server", `${username} left.`, "red");
+		Rooms[i].messages.push(leaveMsg);
 		if (Rooms[i].players.length === 0) {
 			Rooms.splice(i, 1);
 			console.log(`deleted room ${roomID} as there are no players left`);
 		}
 		socket.broadcast.to(roomID).emit(SocketEventNames.PlayerLeave, playerID);
+		socket.to(roomID).emit(SocketEventNames.ChatMessage, leaveMsg);
 	});
 };
