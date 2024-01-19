@@ -67,14 +67,19 @@ export const registerEvents = (io, socket) => {
 	socket.on(SocketEventNames.LeaveRoom, (id, roomID, callback) => {
 		socket.leave(roomID);
 		const i = Rooms.findIndex(room => room.roomID === roomID);
-		console.log(`player with id:${id} left room ${roomID}`);
+		const username = Rooms[i].players.find(p => p.id === id).username;
+		console.log(`${username} left room ${roomID}`);
 		Rooms[i].players = Rooms[i].players.filter(player => player.id !== id);
+		const leaveMsg = new Message("server", `${username} left.`, "red");
+		Rooms[i].messages.push(leaveMsg);
+
 		if (Rooms[i].players.length === 0) {
 			Rooms.splice(i, 1);
 			console.log(`deleted room ${roomID} as there are no players left`);
 		}
 		callback();
 		socket.broadcast.to(roomID).emit(SocketEventNames.PlayerLeave, id);
+		socket.to(roomID).emit(SocketEventNames.ChatMessage, leaveMsg);
 	});
 
 	socket.on(SocketEventNames.ChatMessage, (id, roomID, message) => {
