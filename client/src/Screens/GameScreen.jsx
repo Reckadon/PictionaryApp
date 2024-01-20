@@ -4,6 +4,7 @@ import Grid from "../components/Grid";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { useState } from "react";
 import { sendMessageToServer } from "../utils/socketUtils";
+import PlayersList from "../components/PlayersList";
 
 const GameScreen = ({ playerID, roomID = "", players = [], messages = [], onGameLeave }) => {
 	const [inputMessage, setInputMessage] = useState("");
@@ -27,13 +28,7 @@ const GameScreen = ({ playerID, roomID = "", players = [], messages = [], onGame
 								Pictionary Game
 							</m.h2>
 							<div className="panelBox">
-								<div className="playersContainer">
-									{players.map((p, i) => (
-										<div key={p.id}>
-											{i + 1}: {p.username}
-										</div>
-									))}
-								</div>
+								<PlayersList players={players} />
 								<button
 									className="styledButton fit"
 									onClick={() => navigator.clipboard.writeText(roomID)}

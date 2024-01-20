@@ -16,10 +16,6 @@
 			@include mix.flex-container;
 			flex-grow: 1;
 			height: 100%;
-
-			.playersContainer {
-				flex-grow: 1;
-			}
 		}
 
 		.panelBox.chat {
