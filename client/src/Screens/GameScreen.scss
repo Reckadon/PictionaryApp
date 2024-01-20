@@ -24,6 +24,18 @@
 
 			.messages {
 				width: 100%;
+
+				div {
+					display: flex;
+					padding: 2px 0;
+
+					:nth-child(1) {
+						font-weight: 600;
+					}
+					:nth-child(2) {
+						margin-left: 5px;
+					}
+				}
 			}
 
 			.controls {

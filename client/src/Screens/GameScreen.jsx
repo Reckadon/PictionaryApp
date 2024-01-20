@@ -5,6 +5,7 @@ import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { useState } from "react";
 import { sendMessageToServer } from "../utils/socketUtils";
 import PlayersList from "../components/PlayersList";
+import GameCanvas from "../components/GameCanvas";
 
 const GameScreen = ({ playerID, roomID = "", players = [], messages = [], onGameLeave }) => {
 	const [inputMessage, setInputMessage] = useState("");
@@ -41,7 +42,7 @@ const GameScreen = ({ playerID, roomID = "", players = [], messages = [], onGame
 							</div>
 						</>
 					}
-					middle={<canvas width={800} height={600}></canvas>}
+					middle={<GameCanvas />}
 					right={
 						<div className="panelBox chat">
 							<div className="messages">
@@ -49,7 +50,7 @@ const GameScreen = ({ playerID, roomID = "", players = [], messages = [], onGame
 									<div style={{ color: msg.color !== "def" && msg.color }}>
 										{msg.username ? (
 											<>
-												{msg.username}: {msg.text}
+												<span>{msg.username}</span>: <span>{msg.text}</span>
 											</>
 										) : (
 											<>{msg.text}</>
